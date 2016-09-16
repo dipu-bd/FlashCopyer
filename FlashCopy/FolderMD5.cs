@@ -9,7 +9,6 @@ namespace FlashCopy
 {
     class FolderMD5
     {
-
         public static List<string> GetFiles(string path)
         {
             return Directory.GetFiles(path, "*.*", SearchOption.AllDirectories)

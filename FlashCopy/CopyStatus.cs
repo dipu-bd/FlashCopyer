@@ -5,7 +5,13 @@ using System.Text;
 
 namespace FlashCopy
 {
-    class CopyStatus
+    enum CopyStatus
     {
+        InQueue,
+        Ongoing,
+        Paused,
+        Failed,
+        Cancelled,
+        Finished
     }
 }

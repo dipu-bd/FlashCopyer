@@ -26,30 +26,6 @@ namespace FlashCopy.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool QuiteCopy {
-            get {
-                return ((bool)(this["QuiteCopy"]));
-            }
-            set {
-                this["QuiteCopy"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Point FormLocation {
-            get {
-                return ((global::System.Drawing.Point)(this["FormLocation"]));
-            }
-            set {
-                this["FormLocation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Enabled {
             get {
                 return ((bool)(this["Enabled"]));
@@ -73,10 +49,10 @@ namespace FlashCopy.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4")]
-        public long SizeLimit {
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int SizeLimit {
             get {
-                return ((long)(this["SizeLimit"]));
+                return ((int)(this["SizeLimit"]));
             }
             set {
                 this["SizeLimit"] = value;

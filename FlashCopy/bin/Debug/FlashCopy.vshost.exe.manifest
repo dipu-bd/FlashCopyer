@@ -58,14 +58,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FlashCopy.exe" size="123904">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FlashCopy.exe" size="184320">
       <assemblyIdentity name="FlashCopy" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>42hcy6Cx0ARxTZ66vxRJs1qPzAo=</dsig:DigestValue>
+        <dsig:DigestValue>I3tdQWg+zqPwERHiVdDB0ENWLMA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -78,13 +78,13 @@
       <dsig:DigestValue>ML/T5zol9WWfo27wIRCdO6WqYv4=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="FlashCopy.exe.config" size="937">
+  <file name="FlashCopy.exe.config" size="1182">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>+32Mi4i9CpleZaQoJ6q+zUg2GQA=</dsig:DigestValue>
+      <dsig:DigestValue>Ig+o5+/Z+6bkRCElEmyqM0+2Rqc=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
