@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SandSoft")]
 [assembly: AssemblyProduct("FlashCopy")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright © 2016, Sudipto Chandra")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
