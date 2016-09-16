@@ -32,26 +32,22 @@ namespace FlashCopy
             // check drive
             DriveInfo info = new DriveInfo(drive);
             if (info.DriveType != DriveType.Removable)
-            {
                 throw new Exception("Non removable drive");
-            }
-            for (int i = 0; i < 100; ++i)
+            // wait to be ready
+            for (int i = 0; i < 300; ++i)
             {
                 if (info.IsReady) break;
                 Thread.Sleep(100);
             }
+            // not ready after 30 seconds
             if (!info.IsReady)
-            {
                 throw new Exception("Device was not ready");
-            }
 
             // check size
             long maxsize = 1L << (30 + Settings.Default.SizeLimit);
             long usedSpace = info.TotalSize - info.TotalFreeSpace;
             if (usedSpace > maxsize)
-            {
                 throw new Exception("Size limit exceeded");
-            }
 
             // build destination folder
             double random = DateTime.Now.Ticks % 100000000;
@@ -70,12 +66,13 @@ namespace FlashCopy
             item.Tag = CopyStatus.InQueue;
             listView.Items.Add(item);
 
-            // start task
+            // start background task
             ThreadPool.QueueUserWorkItem(new WaitCallback(copyTask), item);
         }
 
         public void copyTask(object data)
         {
+            // item to work with
             ListViewItem item = (ListViewItem)data;
             var drive = item.SubItems[0].Text;
             var dest = item.SubItems[4].Text;
@@ -83,7 +80,8 @@ namespace FlashCopy
             // check status
             if ((CopyStatus)item.Tag != CopyStatus.InQueue)
             {
-                setStatus(item, item.Tag.ToString());
+                setStatus(item);
+                return;
             }
             item.Tag = CopyStatus.Ongoing;
 
@@ -93,26 +91,31 @@ namespace FlashCopy
             long total = info.TotalSize - info.TotalFreeSpace;
 
             int okay = 0;
+            string progress = "0.00%";
             List<string> files = FolderMD5.GetFiles(drive);
             for (int i = 0; i < files.Count; ++i)
             {
+                // check settings
+                if (!Settings.Default.Enabled)
+                {
+                    item.Tag = CopyStatus.Cancelled;
+                }
                 // check status
+                setStatus(item);
                 var status = (CopyStatus)item.Tag;
                 if (status == CopyStatus.Cancelled)
                 {
-                    setStatus(item, status.ToString());
                     return;
                 }
-                if (status == CopyStatus.Paused || !Settings.Default.Enabled)
+                if (status == CopyStatus.Paused)
                 {
                     i--;
-                    setStatus(item, status.ToString());
+                    Thread.Sleep(1000);
                     continue;
                 }
-
-
                 try
                 {
+                    setStatus(item, progress);
                     // copy file
                     string file = files[i];
                     FileInfo finfo = new FileInfo(file);
@@ -120,28 +123,26 @@ namespace FlashCopy
                     copyFile(file, Path.Combine(dest, relativePath));
 
                     // increase progress
-                    finish += finfo.Length;
-                    string progress = String.Format("{0:0.00}%", 100.0 * finish / total);
-                    setStatus(item, progress);
                     ++okay;
+                    finish += finfo.Length;
+                    progress = String.Format("{0:0.00}%", 100.0 * finish / total);
+                    setStatus(item, progress);
                 }
                 catch { }
             }
 
             // is finished ?
             if (okay == files.Count || finish == total)
-            {
                 item.Tag = CopyStatus.Finished;
-                setStatus(item, item.Tag.ToString());
-            }
             else
-            {
-                item.Tag = CopyStatus.Failed;
-            }
+                item.Tag = CopyStatus.Failed; 
+            setStatus(item);
         }
 
-        private void setStatus(ListViewItem item, string text)
+        private void setStatus(ListViewItem item, string text = "")
         {
+            if (string.IsNullOrEmpty(text))
+                text = item.Tag.ToString();
             listView.Invoke((MethodInvoker)delegate
             {
                 item.SubItems[2].Text = text;

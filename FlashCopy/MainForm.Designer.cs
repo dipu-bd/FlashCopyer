@@ -34,7 +34,6 @@
             this.sizeLimit = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.browseButton = new System.Windows.Forms.Button();
-            this.copyEnabled = new System.Windows.Forms.CheckBox();
             this.copyPath = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.saveButton = new System.Windows.Forms.Button();
@@ -55,6 +54,7 @@
             this.cancelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.exitButton = new System.Windows.Forms.Button();
+            this.copyEnabled = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -107,6 +107,7 @@
             // 
             // browseButton
             // 
+            this.browseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.browseButton.Location = new System.Drawing.Point(229, 43);
             this.browseButton.Name = "browseButton";
             this.browseButton.Size = new System.Drawing.Size(25, 23);
@@ -114,22 +115,6 @@
             this.browseButton.Text = "...";
             this.browseButton.UseVisualStyleBackColor = true;
             this.browseButton.Click += new System.EventHandler(this.browseButton_Click);
-            // 
-            // copyEnabled
-            // 
-            this.copyEnabled.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.copyEnabled.AutoSize = true;
-            this.copyEnabled.Checked = global::FlashCopy.Properties.Settings.Default.Enabled;
-            this.copyEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.copyEnabled.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::FlashCopy.Properties.Settings.Default, "Enabled", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.copyEnabled.Location = new System.Drawing.Point(9, 77);
-            this.copyEnabled.Name = "copyEnabled";
-            this.copyEnabled.Size = new System.Drawing.Size(126, 17);
-            this.copyEnabled.TabIndex = 6;
-            this.copyEnabled.Text = "Run in background";
-            this.copyEnabled.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.copyEnabled.UseVisualStyleBackColor = true;
-            this.copyEnabled.CheckedChanged += new System.EventHandler(this.copyEnabled_CheckedChanged);
             // 
             // copyPath
             // 
@@ -183,6 +168,7 @@
             this.copyStatus,
             this.sizeColumn,
             this.savePath});
+            this.listView1.ContextMenuStrip = this.contextMenuStrip1;
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
@@ -224,11 +210,11 @@
             // 
             // hideButton
             // 
-            this.hideButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.hideButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.hideButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.hideButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.hideButton.ForeColor = System.Drawing.Color.Purple;
-            this.hideButton.Location = new System.Drawing.Point(172, 327);
+            this.hideButton.Location = new System.Drawing.Point(12, 327);
             this.hideButton.Name = "hideButton";
             this.hideButton.Size = new System.Drawing.Size(100, 28);
             this.hideButton.TabIndex = 5;
@@ -246,13 +232,13 @@
             this.toolStripSeparator2,
             this.cancelToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 126);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(140, 104);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // openFolderToolStripMenuItem
             // 
             this.openFolderToolStripMenuItem.Name = "openFolderToolStripMenuItem";
-            this.openFolderToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openFolderToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.openFolderToolStripMenuItem.Text = "Open Folder";
             this.openFolderToolStripMenuItem.Click += new System.EventHandler(this.openFolderToolStripMenuItem_Click);
             // 
@@ -264,14 +250,14 @@
             // pauseToolStripMenuItem
             // 
             this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
-            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.pauseToolStripMenuItem.Text = "Pause";
             this.pauseToolStripMenuItem.Click += new System.EventHandler(this.pauseToolStripMenuItem_Click);
             // 
             // resumeToolStripMenuItem
             // 
             this.resumeToolStripMenuItem.Name = "resumeToolStripMenuItem";
-            this.resumeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.resumeToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.resumeToolStripMenuItem.Text = "Resume";
             this.resumeToolStripMenuItem.Click += new System.EventHandler(this.resumeToolStripMenuItem_Click);
             // 
@@ -283,7 +269,7 @@
             // cancelToolStripMenuItem
             // 
             this.cancelToolStripMenuItem.Name = "cancelToolStripMenuItem";
-            this.cancelToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cancelToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.cancelToolStripMenuItem.Text = "Cancel";
             this.cancelToolStripMenuItem.Click += new System.EventHandler(this.cancelToolStripMenuItem_Click);
             // 
@@ -303,13 +289,28 @@
             this.exitButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.exitButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitButton.ForeColor = System.Drawing.Color.Maroon;
-            this.exitButton.Location = new System.Drawing.Point(12, 327);
+            this.exitButton.Location = new System.Drawing.Point(172, 327);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(100, 28);
             this.exitButton.TabIndex = 6;
             this.exitButton.Text = "EXIT";
             this.exitButton.UseVisualStyleBackColor = false;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            // 
+            // copyEnabled
+            // 
+            this.copyEnabled.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.copyEnabled.AutoSize = true;
+            this.copyEnabled.Checked = global::FlashCopy.Properties.Settings.Default.Enabled;
+            this.copyEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.copyEnabled.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::FlashCopy.Properties.Settings.Default, "Enabled", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.copyEnabled.Location = new System.Drawing.Point(9, 77);
+            this.copyEnabled.Name = "copyEnabled";
+            this.copyEnabled.Size = new System.Drawing.Size(153, 17);
+            this.copyEnabled.TabIndex = 6;
+            this.copyEnabled.Text = "Always copy new devices";
+            this.copyEnabled.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.copyEnabled.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -320,6 +321,7 @@
             this.Controls.Add(this.hideButton);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";

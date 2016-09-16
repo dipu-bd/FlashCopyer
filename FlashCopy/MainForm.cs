@@ -32,6 +32,7 @@ namespace FlashCopy
             driveDetector.DeviceArrived += new DriveDetectorEventHandler(device_Arrived);
         }
 
+        // Hide instead of closing
         protected override void OnClosing(CancelEventArgs e)
         {
             e.Cancel = true;
@@ -56,15 +57,12 @@ namespace FlashCopy
         {
             try
             {
-                mCopyer.addDrive(e.Drive);
-            }
-            catch (Exception ex)
-            {
-                if (!Settings.Default.QuiteCopy)
+                if (Settings.Default.Enabled)
                 {
-                    MessageBox.Show("Could not add drive: " + e.Drive);
+                    mCopyer.addDrive(e.Drive);
                 }
             }
+            catch { }
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -90,13 +88,7 @@ namespace FlashCopy
                 copyPath.Text = fbd.SelectedPath;
             }
         }
-
-        private void copyEnabled_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.Default.Save();
-            copyEnabled.Text = copyEnabled.Checked ? "Disable" : "Enable";
-        }
-
+         
         private void hideButton_Click(object sender, EventArgs e)
         {
             HideMe();
@@ -115,17 +107,7 @@ namespace FlashCopy
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
             var item = (ListViewItem)listView1.FocusedItem;
-            if (item == null)
-            {
-                e.Cancel = true;
-            }
-
-            var status = (CopyStatus)item.Tag;
-            var ok = (status == CopyStatus.InQueue
-                || status == CopyStatus.Ongoing);
-            cancelToolStripMenuItem.Enabled = ok;
-            pauseToolStripMenuItem.Enabled = ok;
-            resumeToolStripMenuItem.Enabled = ok;
+            if (item == null) e.Cancel = true;
         }
 
         private void openFolderToolStripMenuItem_Click(object sender, EventArgs e)
