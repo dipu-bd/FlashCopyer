@@ -17,6 +17,7 @@
             {
                 components.Dispose();
             }
+            driveDetector.Dispose(); 
             base.Dispose(disposing);
         }
 
